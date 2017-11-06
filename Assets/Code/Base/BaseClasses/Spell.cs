@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spell
 {
-	int Cast (Biology target) 
+	int Affect (Biology target) 
 	{
 		
 	}

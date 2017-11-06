@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Item
 {
-	
+	int Consume(Biology target)
+	{
+		return -1;
+	}
 }

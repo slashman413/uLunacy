@@ -7,60 +7,60 @@ public class Biology
 {
 	// health point
 	public float maxHp;
-	public float hp;
+	public float currentHp;
 
 	// magic point
 	public float maxMp;
-	public float mp;
+	public float currentMp;
 
 	// tiredness point
-	public float tp;
+	public float currentTp;
 
 	// constructors
 	public Biology ()
 	{
-		hp = 100.0f;
-		mp = 100.0f;
-		tp = 0.0f;
+		currentHp = 100.0f;
+		currentMp = 100.0f;
+		currentTp = 0.0f;
 	}
 
 	public Biology (float initHp, float initMp, float initTp)
 	{
-		hp = initHp;
-		mp = initMp;
-		tp = initTp;
+		currentHp = initHp;
+		currentMp = initMp;
+		currentTp = initTp;
 	}
 
 	// common methods
 	public bool IsAlive ()
 	{
-		return (hp > 0);
+		return (currentHp > 0);
 	}
 
 	public bool TakeDamage (float damage)
 	{
-		if (hp <= 0) 
+		if (currentHp <= 0) 
 		{
 			return false;
 		}
-		hp -= damage;
+		currentHp -= damage;
 		return true;
 	}
 
 	public bool ConsumeMp (float consumingMp)
 	{
-		if (mp <= 0 || mp < consumingMp) 
+		if (currentMp <= 0 || currentMp < consumingMp) 
 		{
 			return false;
 		}
-		mp -= consumingMp;
+		currentMp -= consumingMp;
 		return true;
 	}
 
 	public bool IncreaseTp (float increasingTp)
 	{
 		// TODO: need maximum limit of tp?
-		tp += increasingTp;
+		currentTp += increasingTp;
 		return true;
 	}
 }
