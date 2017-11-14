@@ -6,44 +6,78 @@ using UnityEngine;
 public class Biology
 {
 	// health point
-	public float maxHp;
-	public float currentHp;
+	private float maxHp;
+	private float currentHp;
 
 	// magic point
-	public float maxMp;
-	public float currentMp;
+	private float maxMp;
+	private float currentMp;
 
 	// tiredness point
-	public float currentTp;
+	private float currentTp;
+	private float baseTp;
+
+	// readiness point
+	private float currentRp;
 
 	// constructors
 	public Biology ()
 	{
-		currentHp = 100.0f;
-		currentMp = 100.0f;
-		currentTp = 0.0f;
+		currentHp = maxHp = 100f;
+		currentMp = maxMp = 100f;
+		currentTp = 1f;
+		baseTp = 10f;
+		currentRp = 0f;
 	}
 
-	public Biology (float initHp, float initMp, float initTp)
+	public Biology (float initHp, float initMp, float initTp, float initMaxHp, float initMaxMp, float initBaseTp, float initRp)
 	{
 		currentHp = initHp;
 		currentMp = initMp;
 		currentTp = initTp;
+
+		maxHp = initMaxHp;
+		maxMp = initMaxMp;
+		baseTp = initBaseTp;
+
+		currentRp = initRp;
 	}
 
 	// common methods
 	public bool IsAlive ()
 	{
-		return (currentHp > 0);
+		return (currentHp > 0) ? true : false;
 	}
 
 	public bool TakeDamage (float damage)
 	{
-		if (currentHp <= 0) 
+		if (IsAlive() == false)
 		{
 			return false;
 		}
-		currentHp -= damage;
+		if (currentHp < damage) 
+		{
+			currentHp = 0;
+		} 
+		else 
+		{
+			currentHp -= damage;
+		}
+
+		return true;
+	}
+
+	public bool TakeHeal (float heal)
+	{
+		if (IsAlive() == false)
+		{
+			return false;
+		}
+		currentHp += heal;
+		if (currentHp > maxHp) 
+		{
+			currentHp = maxHp;
+		}
 		return true;
 	}
 
@@ -57,10 +91,25 @@ public class Biology
 		return true;
 	}
 
-	public bool IncreaseTp (float increasingTp)
+	public bool ConsumeTp (float increasingTp)
 	{
-		// TODO: need maximum limit of tp?
 		currentTp += increasingTp;
 		return true;
+	}
+
+	// update readiness with tireness point
+	public bool UpdateRp ()
+	{
+		if (currentRp >= 100f)
+		{
+			return false;
+		}
+		currentRp += (1000.0f / ((baseTp + currentTp) * 1000.0f));
+		return true;
+	}
+
+	public bool IsReady()
+	{
+		return (currentRp >= 100f) ? true : false;
 	}
 }

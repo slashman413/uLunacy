@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Spell
 {
-	int Affect (Biology target) 
+	bool Damage (Biology target, float hp) 
 	{
-		
+		return target.TakeDamage(hp);
+	}
+
+	bool Heal (Biology target, float healPoint)
+	{
+		return target.TakeHeal(healPoint);
 	}
 }

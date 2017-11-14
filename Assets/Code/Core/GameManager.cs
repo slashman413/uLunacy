@@ -14,14 +14,18 @@ public class GameController : MonoBehaviour
 	{
 	}
 		
-	int AddEnemy (Biology biology)
+	bool AddEnemy (Biology biology)
 	{
 		enemyTeam.Add (biology);
+
+		return true;
 	}
 
-	int AddPlayer (Biology biology)
+	bool AddPlayer (Biology biology)
 	{
 		playerTeam.Add (biology);
+
+		return true;
 	}
 
 	// Use this for initialization
@@ -33,6 +37,12 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (enemyTeam.Count
+		// either enemies or players are eliminated, game over and do nothing
+		if (enemyTeam.Count <= 0 || playerTeam.Count <= 0) 
+		{
+			return;
+		}
+
+
 	}
 }
